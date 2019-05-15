@@ -10,18 +10,19 @@ H = reshape(H,[3,3])'
 
 transImg = [];
 
-[nRow, nCol] = size(img1);
-for i = nRow
-    for j = nCol
-        coord = H * [i, j, 1]'
-        disp(coord)
-% %         [x_prime_w; y_prime_w; w] 
-        x_prime = coord(1,1) / coord(1,3)
-        y_prime = coord(1,2) / coord(1,3)
-        disp(x_prime)
-        disp(y_prime)
+[nRow, nCol, ~] = size(img2);
+for i = 1:nRow
+    for j = 1:nCol        
+        coord = inv(H) * [i, j, 1]';
+        x_prime = coord(1,1) / coord(3,1);
+        y_prime = coord(2,1) / coord(3,1);
+        transImg(i, j, 1) = interp2(img2(:,:,1), x_prime, y_prime); 
+        transImg(i, j, 2) = interp2(img2(:,:,2), x_prime, y_prime);
+        transImg(i, j, 3) = interp2(img2(:,:,3), x_prime, y_prime);
     end
 end
+
+% imshow(transImg)
 
 % imshow(img1);
 % hold on;
