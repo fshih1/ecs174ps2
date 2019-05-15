@@ -27,6 +27,7 @@ function H = computeH(t1, t2)
     end
         
     [H, ~] = eigs(A' * A, 1, 'SM');
+    H = reshape(H,[3,3])';
 end
 
 
