@@ -1,0 +1,21 @@
+% function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
+
+% refIm = 'crop2.jpg'
+
+
+[nrow,ncol] = size(refIm)
+for row = 1:nrow
+   for col = 1:ncol
+       temp = H * [row,col,1]';
+       x_prime = temp(1) / temp(3);  %we might need to scale it back?
+       y_prime = temp(2) / temp(3);
+       
+       if floor(x_prime) ~= ceil(x_prime) % we need to do interpolation
+           
+       
+       else % we chilling
+           
+           
+       end
+   end
+end
