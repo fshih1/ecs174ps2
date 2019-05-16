@@ -21,6 +21,6 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
     %            warpImg(x_prime,y_prime,1) = refIm(row,col,1);
     %            warpImg(x_prime,y_prime,2) = refIm(row,col,2);
     %            warpImg(x_prime,y_prime,3) = refIm(row,col,3);
-    %        end
+        end
    end
 end

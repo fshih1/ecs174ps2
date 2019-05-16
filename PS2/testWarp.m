@@ -5,9 +5,9 @@ refIm = imread('crop2.jpg');
 
 H = computeH(pt1, pt2);
 
-resultImgs = warpImage(inputIm, refIm, H);
+[warpedImg, mergedImg] = warpImage(inputIm, refIm, H);
 
-warpedImg = resultImgs(1);
-mergedImg = resultImgs(2);
+% warpedImg = resultImgs(1, 1);
+% mergedImg = resultImgs(2, 1);
 imshow(warpedImg);
 
