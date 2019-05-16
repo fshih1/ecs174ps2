@@ -5,7 +5,7 @@ refIm = imread('crop2.jpg');
 
 H = computeH(pt1, pt2);
 
-[warpedImg, mergedImg] = warpImage(inputIm, refIm, H);
+[warpedImg, mergedImg] = warpImage2(inputIm, refIm, H);
 
 % warpedImg = resultImgs(1, 1);
 % mergedImg = resultImgs(2, 1);

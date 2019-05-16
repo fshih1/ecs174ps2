@@ -27,13 +27,14 @@ function [warpIm, mergeIm] = warpImage2(inputIm, refIm, H)
             temp = inv(H) * [row,col,1]';
             x_prime = temp(1) / temp(3);  
             y_prime = temp(2) / temp(3);
-            a[row, col] = x_prime
-            b[row, col] = y_prime
+            a(row, col) = x_prime;
+            b(row, col) = y_prime;
         end
     end
+     
+    wrapIm = interp2(A, B, double(inputIm(:,:,1)), a, b);
+    wrapIm(:,:,2) = interp2(A, B, double(inputIm(:,:,2)), a, b);
+    wrapIm(:,:,3) = interp2(A, B, double(inputIm(:,:,3)), a, b);
     
-    
-
-
 
 end
