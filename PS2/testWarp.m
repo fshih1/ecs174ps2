@@ -8,6 +8,6 @@ H = computeH(pt1, pt2);
 resultImgs = warpImage(inputIm, refIm, H);
 
 warpedImg = resultImgs(1);
-
+mergedImg = resultImgs(2);
 imshow(warpedImg);
 
