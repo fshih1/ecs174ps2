@@ -37,9 +37,9 @@ for col = 1:numPoints2
     y = pt2(2,col);
     
     originPt = inv(H) * [x, y, 1]';
-    x_p = transPt(1,1);
-    y_p = transPt(2,1);
-    w = transPt(3,1);
+    x_p = originPt(1,1);
+    y_p = originPt(2,1);
+    w = originPt(3,1);
     x_p = x_p / w;
     y_p = y_p / w;
     
