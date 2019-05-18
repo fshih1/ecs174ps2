@@ -74,19 +74,19 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
             invY = temp(2) / temp(3);
             
             if invX < 1 || invX > maxRow
-                if warpIm(row - boxT + 1, col - boxL + 1, :) ~= 0
-                    continue
-                end
                 warpIm(row - boxT + 1, col - boxL + 1, :) = 0;
-
+                if warpIm(row - boxT + 1, col - boxL + 1, :) ~= 0
+                    
+                end
 %                 warpIm(y - boxT + 1, x - boxL + 1, :) = 0;
                 continue
             end
             if invY < 1 || invY > maxCol
+%                 disp(col);
+%                 disp(col-boxL+1);
                 if warpIm(row - boxT + 1, col - boxL + 1, :) ~= 0
-                    continue
+                    warpIm(row - boxT + 1, col - boxL + 1, :) = 0;
                 end
-                warpIm(row - boxT + 1, col - boxL + 1, :) = 0;
 %                 warpIm(y - boxT + 1, x - boxL + 1, :) = 0;
                 continue
             end
