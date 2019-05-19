@@ -2,9 +2,9 @@
 img1 = imread('crop1.jpg');
 img2 = imread('crop2.jpg');
 
-[pt1, pt2] = Q1_1('crop1.jpg', 'crop2.jpg', 4);
+% [pt1, pt2] = Q1_1('crop1.jpg', 'crop2.jpg', 4);
 
-H = computeH(pt1, pt2)
+% H = computeH(pt1, pt2)
 [m, ~] = max([pt1, pt2], [], 2);
 [~, numPoints] = size(pt1);
 

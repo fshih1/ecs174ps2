@@ -8,19 +8,7 @@ function [warpIm, mergeIm] = warpImage2(inputIm, refIm, H)
     B = [];
     a = [];
     b = [];
-    
-    % iterate through original
-%     for row = 1:nrow_inp
-%         for col = 1:ncol_inp
-%             A(row, col) = col;
-%             B(row, col) = row;
-%         
-% %             temp = H * [row, col, 1]';
-% %             x_prime = temp(1) / temp(3);
-% %             y_prime = temp(2) / temp(3);
-%             
-%         end
-%     end
+
     [A, B] = meshgrid(1:ncol_inp, 1:nrow_inp);
     
     for row = 1:nrow_ref
