@@ -30,13 +30,30 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
     boxR = ceil(max(all_y));
     boxT = floor(min(all_x));
     boxB = ceil(max(all_x));
+    
+    warpIm = zeros([boxB-boxT, boxR-boxL, 3]);
 
     for row = 1:maxRow
         for col = 1:maxCol
             temp = H * [col, row, 1]';
-            invX = temp(2) / temp(3);
-            invY = temp(1) / temp(3);  
-            warpIm(floor(invX) - boxT + 1, floor(invY) - boxL + 1, :) = inputIm(row, col, :);
+            X = temp(2) / temp(3);
+            Y = temp(1) / temp(3);
+            warpX = round(X) - boxT + 1;
+            warpY = round(Y) - boxL + 1;
+     
+            if warpX < 1
+                warpX = 1;
+            elseif warpX > boxB-boxT
+                warpX = boxB-boxT;
+            end
+            if warpY < 1
+                warpY = 1;
+            elseif warpY > boxR-boxL
+                warpY = boxR-boxL;
+            end
+            warpIm(warpX, warpY, 1) = inputIm(row, col, 1);
+            warpIm(warpX, warpY, 2) = inputIm(row, col, 2);
+            warpIm(warpX, warpY, 3) = inputIm(row, col, 3);
         end
     end
     warpIm = uint8(warpIm);
@@ -85,8 +102,19 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
     y_translate = 0;
     x_shift = min([warpCorner1(1), warpCorner2(1), warpCorner3(1), warpCorner4(1)])-1;
     y_shift = min([warpCorner1(2), warpCorner2(2), warpCorner3(2), warpCorner4(2)])-1;
-    x_translate = -x_shift
-    y_translate = -y_shift
+    
+    if -x_shift < 1
+        x_translate = x_shift;
+    else
+        x_translate = -x_shift;
+    end
+ 
+    if -y_shift < 1
+        y_trasnlate = y_shift;
+    else
+        y_translate = -y_shift;
+    end
+    
     for row = 1:nrow
         for col = 1:ncol
             mergeIm(row + floor(x_translate), col + floor(y_translate), 1) = refIm(row, col, 1);
