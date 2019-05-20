@@ -51,6 +51,7 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
             elseif warpY > boxR-boxL
                 warpY = boxR-boxL;
             end
+            
             warpIm(warpX, warpY, 1) = inputIm(row, col, 1);
             warpIm(warpX, warpY, 2) = inputIm(row, col, 2);
             warpIm(warpX, warpY, 3) = inputIm(row, col, 3);
@@ -69,7 +70,7 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
     boxT = floor(min(all_x));
     boxB = ceil(max(all_x));
     
-    mergeIm = zeros([boxB - boxT + 1], [boxR - boxL + 1]);
+    mergeIm = zeros([boxB - boxT + 1, boxR - boxL + 1]);
 
 % iterate through bounding box and compute inverse   
     A = [];
@@ -96,12 +97,13 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
     mergeIm(:,:,2) = interp2(A, B, double(inputIm(:,:,2)), a, b);
     mergeIm(:,:,3) = interp2(A, B, double(inputIm(:,:,3)), a, b);
     mergeIm = uint8(mergeIm);
+
     
-    % compute position of reference image in bounding box
+% compute position of reference image in bounding box
     x_translate = 0;
     y_translate = 0;
-    x_shift = min([warpCorner1(1), warpCorner2(1), warpCorner3(1), warpCorner4(1)])-1;
-    y_shift = min([warpCorner1(2), warpCorner2(2), warpCorner3(2), warpCorner4(2)])-1;
+    x_shift = min([refCorner1(1),refCorner2(1),refCorner3(1),refCorner4(1),warpCorner1(1), warpCorner2(1), warpCorner3(1), warpCorner4(1)])-1;
+    y_shift = min([refCorner1(2),refCorner2(2),refCorner3(2),refCorner4(2),warpCorner1(2), warpCorner2(2), warpCorner3(2), warpCorner4(2)])-1;
     
     if -x_shift < 1
         x_translate = x_shift;
@@ -114,14 +116,30 @@ function [warpIm, mergeIm] = warpImage(inputIm, refIm, H)
     else
         y_translate = -y_shift;
     end
-    
+
+    x_translate
+    y_translate
     for row = 1:nrow
         for col = 1:ncol
-            mergeIm(row + floor(x_translate), col + floor(y_translate), 1) = refIm(row, col, 1);
-            mergeIm(row + floor(x_translate), col + floor(y_translate), 2) = refIm(row, col, 2);
-            mergeIm(row + floor(x_translate), col + floor(y_translate), 3) = refIm(row, col, 3);
-
+            mergeX = row + floor(x_translate);
+            mergeY = col + floor(y_translate);
+            if mergeX < 1
+                mergeX = 1;
+            elseif mergeX > boxB-boxT
+                mergeX = boxB-boxT;
+            end
+            if mergeY < 1
+                mergeY = 1;
+            elseif mergeY > boxR-boxL
+                mergeY = boxR-boxL;
+            end
+            
+            if mergeIm(mergeX, mergeY, 1) == 0
+                mergeIm(mergeX, mergeY, 1) = refIm(row, col, 1);
+                mergeIm(mergeX, mergeY, 2) = refIm(row, col, 2);
+                mergeIm(mergeX, mergeY, 3) = refIm(row, col, 3);
+            end
         end
     end
-
+    
 end

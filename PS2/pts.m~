@@ -1,11 +1,10 @@
+% inputIm = imread('soldier.jpg');
+% refIm = imread('weed.jpg');
+% 
+% [pt1, pt2] = Q1_1('soldier.jpg','weed.jpg', 4)
+% H = computeH(pt1, pt2);
+
 % inputIm = imread('crop1.jpg');
 % refIm = imread('crop2.jpg');
-
-inputIm = imread('wdc1.jpg');
-refIm = imread('wdc2.jpg');
-
-[pt1, pt2] = Q1_1('wdc1.jpg', 'crop2.jpg', 4);
-% pt1 = cc1(:,3:6)
-% pt2 = cc2(:,3:6)
-
-H = computeH(pt1, pt2);
+% 
+% H = computeH(cc1,cc2)

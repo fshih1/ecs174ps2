@@ -4,5 +4,5 @@
 
 [warpedImg, mergedImg] = warpImage(inputIm, refIm, H);
 
-imshow(warpedImg);
+imshow(mergedImg);
 
